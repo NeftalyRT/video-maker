@@ -3,26 +3,26 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import z from "zod";
 
-import { ShortCreator } from "../../short-creator/ShortCreator";
+import { VideoCreator } from "../../video-creator/VideoCreator";
 import { logger } from "../../logger";
 import {
   renderConfig,
   sceneInput,
   type RenderConfig,
   type SceneInput,
-} from "../../types/shorts";
+} from "../../types";
 
 export class MCPRouter {
   router: express.Router;
-  shortCreator: ShortCreator;
+  videoCreator: VideoCreator;
   transports: { [sessionId: string]: SSEServerTransport } = {};
   mcpServer: McpServer;
-  constructor(shortCreator: ShortCreator) {
+  constructor(videoCreator: VideoCreator) {
     this.router = express.Router();
-    this.shortCreator = shortCreator;
+    this.videoCreator = videoCreator;
 
     this.mcpServer = new McpServer({
-      name: "Short Creator",
+      name: "Video Creator",
       version: "0.0.1",
     });
 
@@ -41,7 +41,7 @@ export class MCPRouter {
       },
       async (args: any) => {
         const { videoId } = args;
-        const status = this.shortCreator.status(videoId);
+        const status = this.videoCreator.status(videoId);
         return {
           content: [
             {
@@ -54,9 +54,9 @@ export class MCPRouter {
     );
 
     this.mcpServer.registerTool(
-      "create-short-video",
+      "create-video",
       {
-        description: "Create a short video from a list of scenes",
+        description: "Create a video from a list of scenes",
         inputSchema: z.object({
           scenes: z.array(sceneInput),
           config: renderConfig,
@@ -64,7 +64,7 @@ export class MCPRouter {
       },
       async (args: any) => {
         const { scenes, config } = args;
-        const videoId = await this.shortCreator.addToQueue(scenes, config);
+        const videoId = await this.videoCreator.addToQueue(scenes, config);
 
         return {
           content: [

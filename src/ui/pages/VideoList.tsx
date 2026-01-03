@@ -32,7 +32,7 @@ const VideoList: React.FC = () => {
 
   const fetchVideos = async () => {
     try {
-      const response = await axios.get('/api/short-videos');
+      const response = await axios.get('/api/videos');
       setVideos(response.data.videos || []);
       setLoading(false);
     } catch (err) {
@@ -58,7 +58,7 @@ const VideoList: React.FC = () => {
     event.stopPropagation();
     
     try {
-      await axios.delete(`/api/short-video/${id}`);
+      await axios.delete(`/api/videos/${id}`);
       fetchVideos();
     } catch (err) {
       setError('Failed to delete video');

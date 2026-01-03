@@ -5,7 +5,7 @@ import type {
   Response as ExpressResponse,
 } from "express";
 import path from "path";
-import { ShortCreator } from "../short-creator/ShortCreator";
+import { VideoCreator } from "../video-creator/VideoCreator";
 import { APIRouter } from "./routers/rest";
 import { MCPRouter } from "./routers/mcp";
 import { logger } from "../logger";
@@ -15,7 +15,7 @@ export class Server {
   private app: express.Application;
   private config: Config;
 
-  constructor(config: Config, shortCreator: ShortCreator) {
+  constructor(config: Config, videoCreator: VideoCreator) {
     this.config = config;
     this.app = express();
 
@@ -24,8 +24,8 @@ export class Server {
       res.status(200).json({ status: "ok" });
     });
 
-    const apiRouter = new APIRouter(config, shortCreator);
-    const mcpRouter = new MCPRouter(shortCreator);
+    const apiRouter = new APIRouter(config, videoCreator);
+    const mcpRouter = new MCPRouter(videoCreator);
     this.app.use("/api", apiRouter.router);
     this.app.use("/mcp", mcpRouter.router);
 

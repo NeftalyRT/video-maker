@@ -9,3 +9,7 @@ Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setPublicDir("static/music");
 Config.setEntryPoint("src/components/root/index.ts");
+Config.setJpegQuality(100);
+Config.setCodec("h264");
+Config.setAudioCodec("aac");
+Config.setHardwareAcceleration("if-possible");

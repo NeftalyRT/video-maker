@@ -1,10 +1,10 @@
 version: "3"
 
 services:
-  short-creator:
+  video-maker:
     build:
       context: .
-      dockerfile: main.Dockerfile
+      dockerfile: main-cuda.Dockerfile
     env_file:
       - .env
     environment:

@@ -6,21 +6,21 @@ import type {
 import fs from "fs-extra";
 import path from "path";
 
-import { validateCreateShortInput } from "../validator";
-import { ShortCreator } from "../../short-creator/ShortCreator";
+import { validateCreateVideoInput } from "../validator";
+import { VideoCreator } from "../../video-creator/VideoCreator";
 import { logger } from "../../logger";
 import { Config } from "../../config";
 
 // todo abstract class
 export class APIRouter {
   public router: express.Router;
-  private shortCreator: ShortCreator;
+  private videoCreator: VideoCreator;
   private config: Config;
 
-  constructor(config: Config, shortCreator: ShortCreator) {
+  constructor(config: Config, videoCreator: VideoCreator) {
     this.config = config;
     this.router = express.Router();
-    this.shortCreator = shortCreator;
+    this.videoCreator = videoCreator;
 
     this.router.use(express.json());
 
@@ -29,14 +29,14 @@ export class APIRouter {
 
   private setupRoutes() {
     this.router.post(
-      "/short-video",
+      "/videos",
       async (req: ExpressRequest, res: ExpressResponse) => {
         try {
-          const input = validateCreateShortInput(req.body);
+          const input = validateCreateVideoInput(req.body);
 
-          logger.info({ input }, "Creating short video");
+          logger.info({ input }, "Creating video");
 
-          const videoId = this.shortCreator.addToQueue(
+          const videoId = this.videoCreator.addToQueue(
             input.scenes,
             input.config,
           );
@@ -72,7 +72,7 @@ export class APIRouter {
     );
 
     this.router.get(
-      "/short-video/:videoId/status",
+      "/videos/:videoId/status",
       async (req: ExpressRequest, res: ExpressResponse) => {
         const { videoId } = req.params;
         if (!videoId) {
@@ -81,7 +81,7 @@ export class APIRouter {
           });
           return;
         }
-        const status = this.shortCreator.status(videoId);
+        const status = this.videoCreator.status(videoId);
         res.status(200).json({
           status,
         });
@@ -91,18 +91,18 @@ export class APIRouter {
     this.router.get(
       "/music-tags",
       (req: ExpressRequest, res: ExpressResponse) => {
-        res.status(200).json(this.shortCreator.ListAvailableMusicTags());
+        res.status(200).json(this.videoCreator.ListAvailableMusicTags());
       },
     );
 
     this.router.get("/voices", (req: ExpressRequest, res: ExpressResponse) => {
-      res.status(200).json(this.shortCreator.ListAvailableVoices());
+      res.status(200).json(this.videoCreator.ListAvailableVoices());
     });
 
     this.router.get(
-      "/short-videos",
+      "/videos",
       (req: ExpressRequest, res: ExpressResponse) => {
-        const videos = this.shortCreator.listAllVideos();
+        const videos = this.videoCreator.listAllVideos();
         res.status(200).json({
           videos,
         });
@@ -110,7 +110,7 @@ export class APIRouter {
     );
 
     this.router.delete(
-      "/short-video/:videoId",
+      "/videos/:videoId",
       (req: ExpressRequest, res: ExpressResponse) => {
         const { videoId } = req.params;
         if (!videoId) {
@@ -119,7 +119,7 @@ export class APIRouter {
           });
           return;
         }
-        this.shortCreator.deleteVideo(videoId);
+        this.videoCreator.deleteVideo(videoId);
         res.status(200).json({
           success: true,
         });
@@ -196,7 +196,7 @@ export class APIRouter {
     );
 
     this.router.get(
-      "/short-video/:videoId",
+      "/videos/:videoId",
       (req: ExpressRequest, res: ExpressResponse) => {
         try {
           const { videoId } = req.params;
@@ -206,7 +206,7 @@ export class APIRouter {
             });
             return;
           }
-          const video = this.shortCreator.getVideo(videoId);
+          const video = this.videoCreator.getVideo(videoId);
           res.setHeader("Content-Type", "video/mp4");
           res.setHeader(
             "Content-Disposition",

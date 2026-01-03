@@ -4,7 +4,7 @@
 
 # Description
 
-An open source automated video creation tool for generating short-form video content. Short Video Maker combines text-to-speech, automatic captions, background videos, and music to create engaging short videos from simple text inputs.
+An open source automated video creation tool for generating short-form and long-form video content. Video Maker combines text-to-speech, automatic captions, background videos, and music to create engaging videos from simple text inputs.
 
 This project is meant to provide a free alternative to heavy GPU-power hungry video generation (and a free alternative to expensive, third-party API calls). It doesn't generate a video from scratch based on an image or an image prompt.
 
@@ -67,7 +67,7 @@ You can find example n8n workflows created with the REST/MCP server [in this rep
 
 # Features
 
-- Generate complete short videos from text prompts
+- Generate complete videos from text prompts
 - Text-to-speech conversion
 - Automatic caption generation and styling
 - Background video search and selection via Pexels
@@ -76,13 +76,13 @@ You can find example n8n workflows created with the REST/MCP server [in this rep
 
 # How It Works
 
-Shorts Creator takes simple text inputs and search terms, then:
+Video Creator takes simple text inputs and search terms, then:
 
 1. Converts text to speech using Kokoro TTS
 2. Generates accurate captions via Whisper
 3. Finds relevant background videos from Pexels
 4. Composes all elements with Remotion
-5. Renders a professional-looking short video with perfectly timed captions
+5. Renders a professional-looking video with perfectly timed captions
 
 # Limitations
 
@@ -156,7 +156,7 @@ You might use Docker Compose to run n8n or other services, and you want to combi
 version: "3"
 
 services:
-  short-video-maker:
+  video-maker:
     image: gyoridavid/short-video-maker:latest-tiny
     environment:
       - LOG_LEVEL=debug
@@ -260,7 +260,7 @@ You can load it on http://localhost:3123
 
 ## Available tools
 
-- `create-short-video` Creates a short video - the LLM will figure out the right configuration. If you want to use specific configuration, you need to specify those in you prompt.
+- `create-video` Creates a short video - the LLM will figure out the right configuration. If you want to use specific configuration, you need to specify those in you prompt.
 - `get-video-status` Somewhat useless, it’s meant for checking the status of the video, but since the AI agents aren’t really good with the concept of time, you’ll probably will end up using the REST API for that anyway.
 
 # REST API
