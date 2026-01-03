@@ -1,12 +1,12 @@
-# Contributing to Shorts Creator
+# Contributing to Video Creator
 
 ## How to setup the development environment
 
 1. Clone the repository
 
    ```bash
-   git clone git@github.com:gyoridavid/short-video-maker.git
-   cd shorts-video-maker
+   git clone git@github.com:NeftalyRT/video-maker.git
+   cd video-maker
    ```
 
 2. Install dependencies

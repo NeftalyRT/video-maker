@@ -2,16 +2,16 @@
 import path from "path";
 import fs from "fs-extra";
 
-import { Kokoro } from "./short-creator/libraries/Kokoro";
-import { Remotion } from "./short-creator/libraries/Remotion";
-import { Whisper } from "./short-creator/libraries/Whisper";
-import { FFMpeg } from "./short-creator/libraries/FFmpeg";
-import { PexelsAPI } from "./short-creator/libraries/Pexels";
+import { Kokoro } from "./video-creator/libraries/Kokoro";
+import { Remotion } from "./video-creator/libraries/Remotion";
+import { Whisper } from "./video-creator/libraries/Whisper";
+import { FFMpeg } from "./video-creator/libraries/FFmpeg";
+import { PexelsAPI } from "./video-creator/libraries/Pexels";
 import { Config } from "./config";
-import { ShortCreator } from "./short-creator/ShortCreator";
+import { VideoCreator } from "./video-creator/VideoCreator";
 import { logger } from "./logger";
 import { Server } from "./server/server";
-import { MusicManager } from "./short-creator/music";
+import { MusicManager } from "./video-creator/music";
 
 async function main() {
   const config = new Config();
@@ -41,8 +41,8 @@ async function main() {
   const ffmpeg = await FFMpeg.init();
   const pexelsApi = new PexelsAPI(config.pexelsApiKey);
 
-  logger.debug("initializing the short creator");
-  const shortCreator = new ShortCreator(
+  logger.debug("initializing the video creator");
+  const videoCreator = new VideoCreator(
     config,
     remotion,
     kokoro,
@@ -74,7 +74,7 @@ async function main() {
       } catch (error: unknown) {
         logger.fatal(
           error,
-          "The environment is not set up correctly - please follow the instructions in the README.md file https://github.com/gyoridavid/short-video-maker",
+          "The environment is not set up correctly - please follow the instructions in the README.md file https://github.com/NeftalyRT/video-maker",
         );
         process.exit(1);
       }
@@ -82,7 +82,7 @@ async function main() {
   }
 
   logger.debug("initializing the server");
-  const server = new Server(config, shortCreator);
+  const server = new Server(config, videoCreator);
   const app = server.start();
 
   // todo add shutdown handler

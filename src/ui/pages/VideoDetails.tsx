@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DownloadIcon from '@mui/icons-material/Download';
-import { VideoStatus } from '../../types/shorts';
+import { VideoStatus } from '../../types';
 
 const VideoDetails: React.FC = () => {
   const { videoId } = useParams<{ videoId: string }>();
@@ -25,7 +25,7 @@ const VideoDetails: React.FC = () => {
 
   const checkVideoStatus = async () => {
     try {
-      const response = await axios.get(`/api/short-video/${videoId}/status`);
+      const response = await axios.get(`/api/videos/${videoId}/status`);
       const videoStatus = response.data.status;
 
       if (isMounted.current) {
@@ -130,14 +130,14 @@ const VideoDetails: React.FC = () => {
                 width: '100%',
                 height: '100%',
               }}
-              src={`/api/short-video/${videoId}`}
+              src={`/api/videos/${videoId}`}
             />
           </Box>
           
           <Box textAlign="center">
             <Button 
               component="a"
-              href={`/api/short-video/${videoId}`}
+              href={`/api/videos/${videoId}`}
               download
               variant="contained" 
               color="primary" 

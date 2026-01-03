@@ -1,4 +1,4 @@
-import { createShortInput, CreateShortInput } from "../types/shorts";
+import { createVideoInput, CreateVideoInput } from "../types";
 import { logger } from "../logger";
 import { ZodError } from "zod";
 
@@ -7,8 +7,8 @@ export interface ValidationErrorResult {
   missingFields: Record<string, string>;
 }
 
-export function validateCreateShortInput(input: object): CreateShortInput {
-  const validated = createShortInput.safeParse(input);
+export function validateCreateVideoInput(input: object): CreateVideoInput {
+  const validated = createVideoInput.safeParse(input);
   logger.info({ validated }, "Validated input");
 
   if (validated.success) {

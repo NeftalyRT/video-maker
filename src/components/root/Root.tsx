@@ -1,5 +1,5 @@
 import { CalculateMetadataFunction, Composition } from "remotion";
-import { shortVideoSchema } from "../utils";
+import { videoSchema } from "../utils";
 import { PortraitVideo } from "../videos/PortraitVideo";
 import { LandscapeVideo } from "../videos/LandscapeVideo";
 import { TestVideo } from "../videos/Test";
@@ -9,7 +9,7 @@ import { AvailableComponentsEnum } from "../types";
 const FPS = 25;
 
 export const calculateMetadata: CalculateMetadataFunction<
-  z.infer<typeof shortVideoSchema>
+  z.infer<typeof videoSchema>
 > = async ({ props }) => {
   const durationInFrames = Math.floor((props.config.durationMs / 1000) * FPS);
   return {

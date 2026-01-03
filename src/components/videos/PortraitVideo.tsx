@@ -12,12 +12,12 @@ import { loadFont } from "@remotion/google-fonts/BarlowCondensed";
 import {
   calculateVolume,
   createCaptionPages,
-  shortVideoSchema,
+  videoSchema,
 } from "../utils";
 
 const { fontFamily } = loadFont(); // "Barlow Condensed"
 
-export const PortraitVideo: React.FC<z.infer<typeof shortVideoSchema>> = ({
+export const PortraitVideo: React.FC<z.infer<typeof videoSchema>> = ({
   scenes,
   music,
   config,

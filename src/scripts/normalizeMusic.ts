@@ -4,7 +4,7 @@ import("@ffmpeg-installer/ffmpeg");
 import fs from "fs-extra";
 
 import { logger } from "../logger";
-import { MusicManager } from "../short-creator/music";
+import { MusicManager } from "../video-creator/music";
 import { Config } from "../config";
 
 async function normalize(inputPath: string, outputPath: string) {

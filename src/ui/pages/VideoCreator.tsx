@@ -28,7 +28,7 @@ import {
   VoiceEnum,
   OrientationEnum,
   MusicVolumeEnum,
-} from "../../types/shorts";
+} from "../../types";
 
 interface SceneFormData {
   text: string;
@@ -120,7 +120,7 @@ const VideoCreator: React.FC = () => {
           .filter((term) => term.length > 0),
       }));
 
-      const response = await axios.post("/api/short-video", {
+      const response = await axios.post("/api/videos", {
         scenes: apiScenes,
         config,
       });

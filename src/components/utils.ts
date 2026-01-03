@@ -5,10 +5,10 @@ import {
   type CaptionLine,
   type OrientationEnum,
   MusicVolumeEnum,
-} from "../types/shorts";
+} from "../types";
 import { AvailableComponentsEnum, type OrientationConfig } from "./types";
 
-export const shortVideoSchema = z.object({
+export const videoSchema = z.object({
   scenes: z.array(
     z.object({
       captions: z.custom<Caption[]>(),

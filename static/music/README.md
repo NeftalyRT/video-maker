@@ -1,6 +1,6 @@
-# Music Library for Shorts Creator
+# Music Library for Video Creator
 
-This directory contains background music tracks for use in the shorts creator project. All music files are sourced from the YouTube audio library, and are free to use under their license. You can use this audio track in any of your videos, including videos that you monetize. No attribution is required.
+This directory contains background music tracks for use in the video creator project. All music files are sourced from the YouTube audio library, and are free to use under their license. You can use this audio track in any of your videos, including videos that you monetize. No attribution is required.
 
 ## Music Collection
 
@@ -28,7 +28,7 @@ The following moods are defined in the project's `MusicMoodEnum`:
 To add new music to the project:
 
 1. Add your MP3 file to this directory (`static/music/`)
-2. Update the `src/short-creator/music.ts` file by adding a new record to the `musicList` array:
+2. Update the `src/video-creator/music.ts` file by adding a new record to the `musicList` array:
 
 ```typescript
 {
@@ -41,4 +41,4 @@ To add new music to the project:
 
 ## Usage
 
-The shorts creator uses these mood tags to filter and match appropriate music with video content. Choose tags carefully to ensure proper matching between music mood and video content.
+The video creator uses these mood tags to filter and match appropriate music with video content. Choose tags carefully to ensure proper matching between music mood and video content.

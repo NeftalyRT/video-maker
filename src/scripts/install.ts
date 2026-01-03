@@ -1,10 +1,10 @@
 import { ensureBrowser } from "@remotion/renderer";
 
 import { logger } from "../logger";
-import { Kokoro } from "../short-creator/libraries/Kokoro";
-import { MusicManager } from "../short-creator/music";
+import { Kokoro } from "../video-creator/libraries/Kokoro";
+import { MusicManager } from "../video-creator/music";
 import { Config } from "../config";
-import { Whisper } from "../short-creator/libraries/Whisper";
+import { Whisper } from "../video-creator/libraries/Whisper";
 
 // runs in docker
 export async function install() {
